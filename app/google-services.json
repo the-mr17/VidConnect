@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "471106304912",
+    "project_id": "the-vid-connect",
+    "storage_bucket": "the-vid-connect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471106304912:android:69eddb7f8c24ace9171115",
+        "android_client_info": {
+          "package_name": "com.mr_17.vidconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi9AaXJls0NPs9qkgE3DHOofwCqAleKhk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,7 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.mr_17.vidconnect.MainActivity
 import com.mr_17.vidconnect.R
 import com.mr_17.vidconnect.databinding.FragmentWelcomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WelcomeFragment : Fragment(R.layout.fragment_welcome) {
     private lateinit var binding: FragmentWelcomeBinding
 
