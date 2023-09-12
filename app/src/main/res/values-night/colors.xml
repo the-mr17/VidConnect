@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_color">@color/black_blue</color>
+    <color name="bg_btn_color">@color/medium_black</color>
+    <color name="et_bg_color">@color/medium_black</color>
+    <color name="et_hint_color">@color/medium_grey</color>
+    <color name="txt_color">@color/white</color>
+</resources>
