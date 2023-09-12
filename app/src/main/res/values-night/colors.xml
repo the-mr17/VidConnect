@@ -5,4 +5,5 @@
     <color name="et_bg_color">@color/medium_black</color>
     <color name="et_hint_color">@color/medium_grey</color>
     <color name="txt_color">@color/white</color>
+    <color name="bg_card_color">@color/black</color>
 </resources>

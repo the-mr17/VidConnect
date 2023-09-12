@@ -14,4 +14,5 @@
     <color name="et_bg_color">@color/white</color>
     <color name="et_hint_color">@color/grey</color>
     <color name="txt_color">@color/black</color>
+    <color name="bg_card_color">@color/white</color>
 </resources>
