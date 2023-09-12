@@ -3,7 +3,8 @@
     <color name="medium_black">#1f222a</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue">#246BF9</color>'
+    <color name="blue">#246BF9</color>
+    <color name="dark_blue">#0040BF</color>
     <color name="light_blue">#E6EEFF</color>
     <color name="black_blue">#181a20</color>
     <color name="grey">#858494</color>
@@ -15,4 +16,5 @@
     <color name="et_hint_color">@color/grey</color>
     <color name="txt_color">@color/black</color>
     <color name="bg_card_color">@color/white</color>
+    <color name="toolbar_color">@color/blue</color>
 </resources>

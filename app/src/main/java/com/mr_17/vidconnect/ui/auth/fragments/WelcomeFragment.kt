@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.mr_17.vidconnect.MainActivity
 import com.mr_17.vidconnect.R
 import com.mr_17.vidconnect.databinding.FragmentWelcomeBinding
 
@@ -15,6 +16,8 @@ class WelcomeFragment : Fragment(R.layout.fragment_welcome) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentWelcomeBinding.bind(view)
+
+        (activity as MainActivity).setToolbarTitle("Welcome")
 
         binding.apply {
             btnLogin.setOnClickListener {
