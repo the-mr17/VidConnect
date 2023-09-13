@@ -10,7 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.mr_17.front_benchers.ui.auth.AuthViewModel
+import com.mr_17.vidconnect.ui.auth.AuthViewModel
 import com.mr_17.vidconnect.MainActivity
 import com.mr_17.vidconnect.R
 import com.mr_17.vidconnect.data.Resource

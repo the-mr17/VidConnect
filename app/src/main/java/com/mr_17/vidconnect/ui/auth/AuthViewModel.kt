@@ -1,4 +1,4 @@
-package com.mr_17.front_benchers.ui.auth
+package com.mr_17.vidconnect.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
