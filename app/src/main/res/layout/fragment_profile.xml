@@ -107,44 +107,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_email_heading" />
 
             <TextView
-                android:id="@+id/tv_phone_number_heading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="25dp"
-                android:fontFamily="@font/rubik"
-                android:gravity="center"
-                android:text="Phone Number"
-                android:textColor="@color/txt_color"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_email_address" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/et_phone_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="25dp"
-                android:background="@drawable/bg_edit_text"
-                android:drawableStart="@drawable/ic_baseline_phone_24"
-                android:drawablePadding="15dp"
-                android:fontFamily="@font/rubik_medium"
-                android:hint="Your phone number"
-                android:inputType="number"
-                android:padding="16dp"
-                android:textAllCaps="false"
-                android:textColor="@color/txt_color"
-                android:textColorHint="@color/et_hint_color"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_phone_number_heading" />
-
-            <TextView
-                android:id="@+id/tv_verify_phone_number"
+                android:id="@+id/tv_verify_email_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -155,8 +118,8 @@
                 android:textColor="@color/blue"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@id/et_phone_number"
-                app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
+                app:layout_constraintEnd_toEndOf="@id/et_email_address"
+                app:layout_constraintTop_toBottomOf="@+id/et_email_address" />
 
             <TextView
                 android:id="@+id/tv_address_heading"
@@ -170,7 +133,7 @@
                 android:textColor="@color/txt_color"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
+                app:layout_constraintTop_toBottomOf="@+id/et_email_address" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_address"

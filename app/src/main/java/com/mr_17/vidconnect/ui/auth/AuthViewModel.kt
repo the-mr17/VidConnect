@@ -57,6 +57,10 @@ class AuthViewModel @Inject constructor(
         //_forgotPasswordFlow.value = result
     }
 
+    fun sendEmailVerification() = viewModelScope.launch {
+        repository.sendEmailVerification()
+    }
+
     fun logout() {
         repository.logout()
         _loginFlow.value = null

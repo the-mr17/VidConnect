@@ -54,6 +54,11 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun sendEmailVerification() {
+        if(!currentUser?.isEmailVerified!!)
+        firebaseAuth.currentUser?.sendEmailVerification()
+    }
+
     override fun logout() {
         firebaseAuth.signOut()
     }

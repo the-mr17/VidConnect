@@ -51,6 +51,26 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), LocationListener {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
+        checkAndGetPermissions()
+
+        binding.apply {
+            etFullName.setText(authViewModel.currentUser?.displayName.toString())
+            etEmailAddress.setText(authViewModel.currentUser?.email.toString())
+            tvVerifyEmailAddress.apply {
+                val isEmailVerified = authViewModel.currentUser?.isEmailVerified!!
+                showToast(isEmailVerified.toString())
+                setOnClickListener {
+                    if(!isEmailVerified) {
+                        authViewModel.sendEmailVerification()
+                        showToast("Verification Link has been send to your email.")
+                    }
+                }
+                text = if(isEmailVerified) "Verified!" else "Verify"
+            }
+        }
+    }
+
+    private fun checkAndGetPermissions() {
         Dexter
             .withContext(requireContext().applicationContext)
             .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -70,13 +90,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), LocationListener {
                     token?.continuePermissionRequest()
                 }
             }).check()
-
-
-        binding.apply {
-            etFullName.setText(authViewModel.currentUser?.displayName.toString())
-            etEmailAddress.setText(authViewModel.currentUser?.email.toString())
-            etPhoneNumber.setText(authViewModel.currentUser?.phoneNumber.toString())
-        }
     }
 
     @SuppressLint("MissingPermission")
