@@ -8,17 +8,21 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mr_17.vidconnect.MainActivity
 import com.mr_17.vidconnect.R
 import com.mr_17.vidconnect.data.Resource
 import com.mr_17.vidconnect.databinding.FragmentHomeBinding
 import com.mr_17.vidconnect.ui.home.HomeViewModel
+import com.mr_17.vidconnect.ui.home.adapters.UsersRecyclerViewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home),
+UsersRecyclerViewAdapter.OnClickListener {
+
     private lateinit var binding: FragmentHomeBinding
     private val homeViewModel by viewModels<HomeViewModel>()
 
@@ -46,7 +50,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     is Resource.Failure -> {
                     }
                     is Resource.Success -> {
-                        Log.d("users", it.toString())
+                        binding.rvUsers.apply {
+                            adapter = UsersRecyclerViewAdapter(
+                                it.result,
+                                requireContext(),
+                                this@HomeFragment
+                            )
+                            layoutManager = LinearLayoutManager(context)
+                        }
                     }
                     is Resource.Loading -> {
                     }
@@ -58,5 +69,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+    }
+
+    override fun onCallButtonClick(v: View?, position: Int) {
+
+    }
+
+    override fun onVideoCallButtonClick(v: View?, position: Int) {
+
     }
 }
