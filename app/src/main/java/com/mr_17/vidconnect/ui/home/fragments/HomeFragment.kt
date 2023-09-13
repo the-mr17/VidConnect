@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.mr_17.vidconnect.MainActivity
 import com.mr_17.vidconnect.R
 import com.mr_17.vidconnect.databinding.FragmentHomeBinding
@@ -19,5 +20,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding = FragmentHomeBinding.bind(view)
 
         (activity as MainActivity).setToolbarTitle("Home")
+
+        binding.apply {
+            btnProfile.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+            }
+        }
     }
 }

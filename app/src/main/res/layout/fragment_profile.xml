@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.profile.fragments.ProfileFragment"
+    android:background="@color/bg_color">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_profile"
+            android:layout_width="150dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1"
+            android:src="@drawable/ic_default_profile"
+            app:civ_border_color="@color/blue"
+            app:civ_border_width="4dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_full_name_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="18dp"
+            android:fontFamily="@font/rubik"
+            android:gravity="center"
+            android:text="Full Name"
+            android:textColor="@color/txt_color"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/civ_profile"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text"
+            android:fontFamily="@font/rubik_medium"
+            android:padding="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Your full name"
+            android:textColorHint="@color/et_hint_color"
+            android:inputType="textPersonName"
+            android:textAllCaps="false"
+            android:textColor="@color/txt_color"
+            android:textSize="16sp"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:drawablePadding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_full_name_heading" />
+
+        <TextView
+            android:id="@+id/tv_email_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="18dp"
+            android:fontFamily="@font/rubik"
+            android:gravity="center"
+            android:text="Email Address"
+            android:textColor="@color/txt_color"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_full_name" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_email_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text"
+            android:fontFamily="@font/rubik_medium"
+            android:padding="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Your email address"
+            android:textColorHint="@color/et_hint_color"
+            android:inputType="textEmailAddress"
+            android:textAllCaps="false"
+            android:textColor="@color/txt_color"
+            android:textSize="16sp"
+            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:drawablePadding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_email_heading" />
+
+        <TextView
+            android:id="@+id/tv_phone_number_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="18dp"
+            android:fontFamily="@font/rubik"
+            android:gravity="center"
+            android:text="Phone Number"
+            android:textColor="@color/txt_color"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_email_address" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text"
+            android:fontFamily="@font/rubik_medium"
+            android:padding="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Your phone number"
+            android:textColorHint="@color/et_hint_color"
+            android:inputType="number"
+            android:textAllCaps="false"
+            android:textColor="@color/txt_color"
+            android:textSize="16sp"
+            android:drawableStart="@drawable/ic_baseline_phone_24"
+            android:drawablePadding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_phone_number_heading" />
+
+        <TextView
+            android:id="@+id/tv_verify_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rubik"
+            android:gravity="center"
+            android:text="Verify"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="@id/et_phone_number"
+            app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
