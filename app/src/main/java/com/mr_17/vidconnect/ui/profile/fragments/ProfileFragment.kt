@@ -58,7 +58,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), LocationListener {
             etEmailAddress.setText(authViewModel.currentUser?.email.toString())
             tvVerifyEmailAddress.apply {
                 val isEmailVerified = authViewModel.currentUser?.isEmailVerified!!
-                showToast(isEmailVerified.toString())
                 setOnClickListener {
                     if(!isEmailVerified) {
                         authViewModel.sendEmailVerification()

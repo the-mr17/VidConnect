@@ -13,11 +13,14 @@ import com.mr_17.vidconnect.MainActivity
 import com.mr_17.vidconnect.R
 import com.mr_17.vidconnect.data.Resource
 import com.mr_17.vidconnect.databinding.FragmentHomeBinding
+import com.mr_17.vidconnect.service.ServiceRepository
+import com.mr_17.vidconnect.ui.auth.AuthViewModel
 import com.mr_17.vidconnect.ui.home.HomeViewModel
 import com.mr_17.vidconnect.ui.home.adapters.UsersRecyclerViewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home),
@@ -25,6 +28,9 @@ UsersRecyclerViewAdapter.OnClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private val homeViewModel by viewModels<HomeViewModel>()
+    private val authViewModel by viewModels<AuthViewModel>()
+
+    @Inject lateinit var serviceRepository: ServiceRepository
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,6 +47,7 @@ UsersRecyclerViewAdapter.OnClickListener {
         }
 
         initObservers()
+        startService()
     }
 
     private fun initObservers() {
@@ -77,5 +84,10 @@ UsersRecyclerViewAdapter.OnClickListener {
 
     override fun onVideoCallButtonClick(v: View?, position: Int) {
 
+    }
+
+    private fun startService() {
+        serviceRepository.startService(authViewModel.currentUser!!.uid)
+        homeViewModel.subscribeForLatestEvent()
     }
 }
