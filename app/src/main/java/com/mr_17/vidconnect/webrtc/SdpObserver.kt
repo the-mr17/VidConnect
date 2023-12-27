@@ -4,7 +4,7 @@ import org.webrtc.SdpObserver
 import org.webrtc.SessionDescription
 
 open class SdpObserver: SdpObserver {
-    override fun onCreateSuccess(p0: SessionDescription?) {
+    override fun onCreateSuccess(desc: SessionDescription?) {
 
     }
 

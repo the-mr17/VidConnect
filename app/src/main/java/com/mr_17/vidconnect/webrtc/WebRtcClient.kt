@@ -2,21 +2,22 @@ package com.mr_17.vidconnect.webrtc
 
 import android.content.Context
 import com.google.gson.Gson
+import com.mr_17.vidconnect.enums.LatestEventType
 import com.mr_17.vidconnect.ui.home.models.LatestEvent
 import org.webrtc.AudioTrack
-import org.webrtc.Camera2Capturer
 import org.webrtc.Camera2Enumerator
 import org.webrtc.DefaultVideoDecoderFactory
 import org.webrtc.DefaultVideoEncoderFactory
 import org.webrtc.EglBase
+import org.webrtc.IceCandidate
 import org.webrtc.MediaConstraints
 import org.webrtc.MediaStream
 import org.webrtc.PeerConnection
 import org.webrtc.PeerConnectionFactory
+import org.webrtc.SessionDescription
 import org.webrtc.SurfaceTextureHelper
 import org.webrtc.SurfaceViewRenderer
 import org.webrtc.VideoTrack
-import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class WebRtcClient @Inject constructor(
@@ -25,7 +26,7 @@ class WebRtcClient @Inject constructor(
 ) {
     // class variables
     var listener: Listener? = null
-    private lateinit var targetId: String
+    private lateinit var uId: String
 
     // webrtc variables
     private val eglBaseContext = EglBase.create().eglBaseContext
@@ -46,6 +47,10 @@ class WebRtcClient @Inject constructor(
     }
     private val videoCapturer = getVideoCapturer(context)
     private var surfaceTextureHelper: SurfaceTextureHelper? = null
+    private val mediaConstraint = MediaConstraints().apply {
+        mandatory.add(MediaConstraints.KeyValuePair("OfferToReceiveVideo", "true"))
+        mandatory.add(MediaConstraints.KeyValuePair("OfferToReceiveAudio", "true"))
+    }
 
     // call variables
     private lateinit var localSurfaceView: SurfaceViewRenderer
@@ -83,17 +88,109 @@ class WebRtcClient @Inject constructor(
     }
 
     fun initializeWebRtcClient(
-        targetId: String,
+        uId: String,
         observer: PeerConnection.Observer
     ) {
-        this.targetId = targetId
-        localTrackId = "${targetId}_track"
-        localStreamId = "${targetId}_stream"
+        this.uId = uId
+        localTrackId = "${uId}_track"
+        localStreamId = "${uId}_stream"
         peerConnection = createPeerConnection(observer)
     }
 
     private fun createPeerConnection(observer: PeerConnection.Observer): PeerConnection? {
         return peerConnectionFactory.createPeerConnection(iceServer, observer)
+    }
+
+    fun call(targetId: String) {
+        peerConnection?.createOffer(object : SdpObserver() {
+            override fun onCreateSuccess(desc: SessionDescription?) {
+                super.onCreateSuccess(desc)
+                peerConnection?.setLocalDescription(object : SdpObserver() {
+                    override fun onSetSuccess() {
+                        super.onSetSuccess()
+                        listener?.onTransferEventToSocket(
+                            LatestEvent(
+                                type = LatestEventType.OFFER,
+                                senderId = uId,
+                                targetId = targetId,
+                                data = desc?.description
+                            )
+                        )
+                    }
+                }, desc)
+            }
+        }, mediaConstraint)
+    }
+
+    fun answer(targetId: String) {
+        peerConnection?.createAnswer(object : SdpObserver() {
+            override fun onCreateSuccess(desc: SessionDescription?) {
+                super.onCreateSuccess(desc)
+                peerConnection?.setLocalDescription(object : SdpObserver() {
+                    override fun onSetSuccess() {
+                        super.onSetSuccess()
+                        listener?.onTransferEventToSocket(
+                            LatestEvent(
+                                type = LatestEventType.OFFER,
+                                senderId = uId,
+                                targetId = targetId,
+                                data = desc?.description
+                            )
+                        )
+                    }
+                }, desc)
+            }
+        }, mediaConstraint)
+    }
+
+    fun onRemoteSessionReceived(sessionDescription: SessionDescription) {
+        peerConnection?.setRemoteDescription(SdpObserver(), sessionDescription)
+    }
+
+    fun addIceCandidateToPeer(iceCandidate: IceCandidate) {
+        peerConnection?.addIceCandidate(iceCandidate)
+    }
+
+    fun sendIceCandidate(targetId: String, iceCandidate: IceCandidate) {
+        addIceCandidateToPeer(iceCandidate)
+        listener?.onTransferEventToSocket(
+            LatestEvent(
+                type = LatestEventType.OFFER,
+                senderId = uId,
+                targetId = targetId,
+                data = gson.toJson(iceCandidate)
+            )
+        )
+    }
+
+    fun closeConnection() {
+        try {
+            videoCapturer.dispose()
+            localStream?.dispose()
+            peerConnection?.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun switchCamera() {
+        videoCapturer.switchCamera(null)
+    }
+
+    fun toggleAudio(shouldBeMuted: Boolean) {
+        if (shouldBeMuted) {
+            localStream?.removeTrack(localAudioTrack)
+        } else {
+            localStream?.addTrack(localAudioTrack)
+        }
+    }
+
+    fun toggleVideo(shouldBeMuted: Boolean) {
+        if (shouldBeMuted) {
+            stopCapturingCamera()
+        } else {
+            startCapturingCamera(localSurfaceView)
+        }
     }
 
     private fun initSurfaceView(view: SurfaceViewRenderer) {
@@ -159,7 +256,7 @@ class WebRtcClient @Inject constructor(
         }
     }
 
-    private fun stopCapturingCamera(localView: SurfaceViewRenderer) {
+    private fun stopCapturingCamera() {
         videoCapturer.dispose()
         localVideoTrack?.removeSink(localSurfaceView)
         localSurfaceView.clearImage()
