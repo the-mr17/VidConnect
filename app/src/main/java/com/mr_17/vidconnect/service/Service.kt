@@ -9,8 +9,10 @@ import android.os.IBinder
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import androidx.fragment.app.viewModels
 import com.mr_17.vidconnect.R
 import com.mr_17.vidconnect.service.ServiceActions.*
+import com.mr_17.vidconnect.ui.home.HomeViewModel
 import com.mr_17.vidconnect.utils.Constants.NODE_UID
 import dagger.hilt.android.AndroidEntryPoint
 

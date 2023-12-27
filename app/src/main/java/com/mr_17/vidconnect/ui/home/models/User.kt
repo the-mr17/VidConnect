@@ -19,6 +19,8 @@ data class User(
 )
 
 data class LatestEvent(
+    @SerializedName("senderName")
+    var senderName: String? = null,
     @SerializedName("senderId")
     val senderId: String? = null,
     @SerializedName("targetId")

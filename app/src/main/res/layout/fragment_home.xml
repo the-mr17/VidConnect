@@ -7,6 +7,54 @@
     tools:context=".ui.home.fragments.HomeFragment"
     android:background="@color/bg_color">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:id="@+id/incomingCallLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/tvIncomingCallTitle"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:fontFamily="@font/rubik_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Some one is calling you"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toBottomOf="@id/tvIncomingCallTitle"
+            app:layout_constraintStart_toStartOf="@id/tvIncomingCallTitle"
+            android:text="Accept"
+            android:fontFamily="@font/rubik_medium"
+            android:background="@drawable/bg_button"
+            android:backgroundTint="#4CAF50"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/btn_decline"
+            android:id="@+id/btn_accept"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvIncomingCallTitle"
+            app:layout_constraintStart_toEndOf="@id/btn_accept"
+            android:text="Decline"
+            android:fontFamily="@font/rubik_medium"
+            android:background="@drawable/bg_button"
+            android:backgroundTint="#F44336"
+            android:textColor="@color/white"
+            android:id="@+id/btn_decline"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_profile"
         android:layout_width="match_parent"
@@ -24,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/incomingCallLayout"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_users"

@@ -1,11 +1,13 @@
 package com.mr_17.vidconnect.ui.home
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.mr_17.vidconnect.data.Resource
+import com.mr_17.vidconnect.enums.LatestEventType.*
 import com.mr_17.vidconnect.ui.home.models.LatestEvent
 import com.mr_17.vidconnect.ui.home.models.User
 import com.mr_17.vidconnect.utils.Constants.DATABASE_REF_USERS
@@ -52,15 +54,17 @@ class HomeRepositoryImpl @Inject constructor(
 
     override suspend fun sendMessageToOtherClient(latestEvent: LatestEvent): Resource<String>? {
         val convertedLatestEvent = gson.toJson(latestEvent.copy(senderId = firebaseAuth.uid))
+        val convertedLatestEventMap: Map<*, *> = gson.fromJson(convertedLatestEvent, MutableMap::class.java)
         return try {
             DATABASE_REF_USERS
                 .child(latestEvent.targetId)
                 .child(NODE_LATEST_EVENT)
-                .setValue(convertedLatestEvent)
+                .setValue(convertedLatestEventMap)
                 .await()
             Resource.Success(latestEvent.targetId)
         } catch (e: Exception) {
             e.printStackTrace()
+            Log.d("error123", e.message.toString())
             Resource.Failure(e)
         }
     }
@@ -87,6 +91,15 @@ class HomeRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    override suspend fun sendConnectionRequest(targetId: String, isVideoCall: Boolean) {
+        sendMessageToOtherClient(
+            LatestEvent(
+                type = if (isVideoCall) START_VIDEO_CALL else START_AUDIO_CALL,
+                targetId = targetId
+            )
+        )
     }
 
     interface Listener {

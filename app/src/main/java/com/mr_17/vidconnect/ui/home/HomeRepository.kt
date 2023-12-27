@@ -8,4 +8,5 @@ interface HomeRepository {
     suspend fun getAllUserData() : Resource<List<User>>?
     suspend fun sendMessageToOtherClient(latestEvent: LatestEvent) : Resource<String>?
     suspend fun subscribeForLatestEvent(listener: HomeRepositoryImpl.Listener)
+    suspend fun sendConnectionRequest(targetId: String, isVideoCall: Boolean)
 }

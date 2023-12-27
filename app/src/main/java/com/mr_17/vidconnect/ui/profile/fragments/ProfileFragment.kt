@@ -95,27 +95,29 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), LocationListener {
     private fun getCurrentLocation() {
         if (isLocationEnabled()) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
-            mFusedLocationClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
-                val location: Location? = task.result
-                if (location != null) {
-                    val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                    val list: MutableList<Address>? =
-                        geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                    latLng = LatLng(location.latitude, location.longitude)
+            activity?.let {
+                mFusedLocationClient.lastLocation.addOnCompleteListener(it) { task ->
+                    val location: Location? = task.result
+                    if (location != null) {
+                        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                        val list: MutableList<Address>? =
+                            geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                        latLng = LatLng(location.latitude, location.longitude)
 
-                    val markerOptions =
-                        MarkerOptions().position(latLng).title("Your location")
+                        val markerOptions =
+                            MarkerOptions().position(latLng).title("Your location")
 
-                    binding.apply {
-                        etAddress.setText(list?.get(0)!!.getAddressLine(0).toString())
-                    }
+                        binding.apply {
+                            etAddress.setText(list?.get(0)!!.getAddressLine(0).toString())
+                        }
 
-                    val mapFragment = childFragmentManager
-                        .findFragmentById(R.id.fragment_google_maps) as SupportMapFragment
+                        val mapFragment = childFragmentManager
+                            .findFragmentById(R.id.fragment_google_maps) as SupportMapFragment
 
-                    mapFragment.getMapAsync {
-                        it.addMarker(markerOptions)
-                        it.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+                        mapFragment.getMapAsync {
+                            it.addMarker(markerOptions)
+                            it.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+                        }
                     }
                 }
             }
