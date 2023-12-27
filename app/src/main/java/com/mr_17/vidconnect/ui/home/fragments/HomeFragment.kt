@@ -110,12 +110,28 @@ UsersRecyclerViewAdapter.OnClickListener {
                                         incomingCallLayout.isVisible = true
                                         tvIncomingCallTitle.text =
                                             "${it.result.senderId} is audio calling you"
+                                        btnAccept.setOnClickListener {
+                                            findNavController().navigate(
+                                                HomeFragmentDirections.actionHomeFragmentToCallFragment(
+                                                    isVideoCall = false,
+                                                    isCaller = false
+                                                )
+                                            )
+                                        }
                                     }
 
                                     START_VIDEO_CALL -> {
                                         incomingCallLayout.isVisible = true
                                         tvIncomingCallTitle.text =
                                             "${it.result.senderId} is video calling you"
+                                        btnAccept.setOnClickListener {
+                                            findNavController().navigate(
+                                                HomeFragmentDirections.actionHomeFragmentToCallFragment(
+                                                    isVideoCall = true,
+                                                    isCaller = false
+                                                )
+                                            )
+                                        }
                                     }
 
                                     else -> {}
@@ -149,6 +165,13 @@ UsersRecyclerViewAdapter.OnClickListener {
                 userList[position].uId,
                 false
             )
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToCallFragment(
+                    targetId = userList[position].uId,
+                    isVideoCall = false,
+                    isCaller = true
+                )
+            )
         } else {
             checkAndGetPermissions()
         }
@@ -159,6 +182,13 @@ UsersRecyclerViewAdapter.OnClickListener {
             homeViewModel.sendConnectionRequest(
                 userList[position].uId,
                 true
+            )
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToCallFragment(
+                    targetId = userList[position].uId,
+                    isVideoCall = true,
+                    isCaller = true
+                )
             )
         } else {
             checkAndGetPermissions()

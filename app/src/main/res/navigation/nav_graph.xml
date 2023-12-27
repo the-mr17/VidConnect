@@ -43,10 +43,34 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+          android:id="@+id/action_homeFragment_to_callFragment"
+          app:destination="@id/callFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.mr_17.vidconnect.ui.profile.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+      android:id="@+id/callFragment"
+      android:name="com.mr_17.vidconnect.ui.call.fragments.CallFragment"
+      android:label="CallFragment"
+      tools:layout="@layout/fragment_call">
+        <argument
+          android:name="targetId"
+          android:defaultValue=""
+          app:argType="string"
+          app:nullable="true" />
+        <argument
+          android:name="isVideoCall"
+          android:defaultValue="true"
+          app:argType="boolean"
+          app:nullable="false" />
+        <argument
+          android:name="isCaller"
+          android:defaultValue="true"
+          app:argType="boolean"
+          app:nullable="false" />
+    </fragment>
 </navigation>

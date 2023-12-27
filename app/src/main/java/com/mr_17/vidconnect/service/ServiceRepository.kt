@@ -26,4 +26,15 @@ class ServiceRepository @Inject constructor(
             context.startService(intent)
         }
     }
+
+    fun setupViews(isVideoCall: Boolean, isCaller: Boolean, targetId: String) {
+        val intent = Intent(context, Service::class.java)
+        intent.apply {
+            action = ServiceActions.SETUP_VIEWS.name
+            putExtra("isVideoCall", isVideoCall)
+            putExtra("isCaller", isCaller)
+            putExtra("targetId", targetId)
+        }
+        startServiceIntent(intent)
+    }
 }

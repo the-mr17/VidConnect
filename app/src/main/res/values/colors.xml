@@ -9,6 +9,11 @@
     <color name="black_blue">#181a20</color>
     <color name="grey">#858494</color>
     <color name="medium_grey">#6d6f72</color>
+    <color name="faded_white">#57FFFFFF</color>
+    <color name="faded_black">#57000000</color>
+    <color name="light_green">#3AAE09</color>
+    <color name="yellow">#EAE78F</color>
+    <color name="red">#E82039</color>
 
     <color name="bg_color">@color/light_blue</color>
     <color name="bg_btn_color">@color/white</color>

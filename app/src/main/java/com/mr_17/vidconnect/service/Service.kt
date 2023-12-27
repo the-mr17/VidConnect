@@ -12,9 +12,11 @@ import androidx.core.app.NotificationCompat
 import androidx.fragment.app.viewModels
 import com.mr_17.vidconnect.R
 import com.mr_17.vidconnect.service.ServiceActions.*
+import com.mr_17.vidconnect.ui.call.CallRepository
 import com.mr_17.vidconnect.ui.home.HomeViewModel
 import com.mr_17.vidconnect.utils.Constants.NODE_UID
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class Service : Service(){
@@ -22,6 +24,9 @@ class Service : Service(){
     private var uId: String? = null
 
     private lateinit var notificationManager: NotificationManager
+
+    @Inject
+    lateinit var callRepository: CallRepository
 
     override fun onCreate() {
         super.onCreate()
@@ -32,11 +37,24 @@ class Service : Service(){
         intent?.let {incomingIntent ->
             when(incomingIntent.action) {
                 START_SERVICE.name -> handleStartService(incomingIntent)
+                SETUP_VIEWS.name -> handleSetupViews(incomingIntent)
                 else -> Unit
             }
         }
 
         return START_STICKY
+    }
+
+    private fun handleSetupViews(incomingIntent: Intent) {
+        val isCaller = incomingIntent.getBooleanExtra("isCaller", false)
+        val isVideoCall = incomingIntent.getBooleanExtra("isVideoCall", false)
+        val targetId = incomingIntent.getStringExtra("targetId")
+
+        callRepository.setTargetId(targetId!!)
+
+        if (!isCaller) {
+            // callRepository.startCall()
+        }
     }
 
     private fun handleStartService(incomingIntent: Intent) {

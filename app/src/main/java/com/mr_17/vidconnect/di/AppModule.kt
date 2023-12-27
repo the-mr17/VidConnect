@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.mr_17.vidconnect.ui.auth.AuthRepository
 import com.mr_17.vidconnect.ui.auth.AuthRepositoryImpl
+import com.mr_17.vidconnect.ui.call.CallRepository
 import com.mr_17.vidconnect.ui.home.HomeRepository
 import com.mr_17.vidconnect.ui.home.HomeRepositoryImpl
 import dagger.Module
@@ -31,4 +32,7 @@ object AppModule {
 
     @Provides
     fun providesHomeRepository(impl: HomeRepositoryImpl): HomeRepository = impl
+
+    @Provides
+    fun providesCallRepository(impl: CallRepository): CallRepository = impl
 }
