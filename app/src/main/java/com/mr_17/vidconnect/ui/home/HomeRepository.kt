@@ -6,7 +6,7 @@ import com.mr_17.vidconnect.ui.home.models.User
 
 interface HomeRepository {
     suspend fun getAllUserData() : Resource<List<User>>?
-    suspend fun sendMessageToOtherClient(latestEvent: LatestEvent) : Resource<String>?
+    fun sendMessageToOtherClient(latestEvent: LatestEvent)
     suspend fun subscribeForLatestEvent(listener: HomeRepositoryImpl.Listener)
     suspend fun sendConnectionRequest(targetId: String, isVideoCall: Boolean)
 }

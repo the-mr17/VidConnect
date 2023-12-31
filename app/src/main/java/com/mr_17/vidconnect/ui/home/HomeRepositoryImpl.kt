@@ -52,20 +52,16 @@ class HomeRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun sendMessageToOtherClient(latestEvent: LatestEvent): Resource<String>? {
+    override fun sendMessageToOtherClient(latestEvent: LatestEvent) {
         val convertedLatestEvent = gson.toJson(latestEvent.copy(senderId = firebaseAuth.uid))
         val convertedLatestEventMap: Map<*, *> = gson.fromJson(convertedLatestEvent, MutableMap::class.java)
-        return try {
+        try {
             DATABASE_REF_USERS
                 .child(latestEvent.targetId)
                 .child(NODE_LATEST_EVENT)
                 .setValue(convertedLatestEventMap)
-                .await()
-            Resource.Success(latestEvent.targetId)
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.d("error123", e.message.toString())
-            Resource.Failure(e)
         }
     }
 
